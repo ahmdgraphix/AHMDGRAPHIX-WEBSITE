@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AHMDGRAPHIX.</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  <!-- Security Headers -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com https://api.fontshare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://api.fontshare.com; script-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self';">
+
+  <!-- Meta Tags for SEO -->
+  <meta name="description" content="Irshad Ahamed (AHMDGRAPHIX) — Premium portfolio & ethical marketing SaaS solutions, frontend engineering, and high-performance UI design.">
+  <meta name="keywords" content="AHMDGRAPHIX, Irshad Ahamed, Front End Developer, SaaS Builder, Ethical Marketing, Halal Content, Graphic Design, Pricing, Portfolio">
+  
+  <!-- Font Imports: Poppins (Bold/ExtraBold/Black), Playfair Display Italic, Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@1,400;1,700;1,900&family=Poppins:wght@700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Fontshare Satoshi Font Link -->
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@500,700,900&display=swap" rel="stylesheet">
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Dynamic Paper Noise Overlay -->
+  <div class="grain-overlay"></div>
+
+  <!-- Global SVG Doodles & Background Elements -->
+  <div class="global-decorations">
+    <!-- Hand-drawn black curved line on the right side exactly like reference image -->
+    <svg class="hand-drawn-line" viewBox="0 0 400 1000" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M 320 0 
+               C 350 150, 180 300, 240 450 
+               C 280 550, 390 650, 350 780 
+               C 320 880, 260 920, 280 1000" 
+            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="10 4 2 4" class="animated-path" />
+    </svg>
+
+    <!-- Floating Doodle Stars & Sparkles -->
+    <div class="doodle-star star-yellow" style="top: 15%; right: 40%;">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4L12 0Z" fill="#EFFF72" stroke="#111111" stroke-width="1.5" />
+      </svg>
+    </div>
+    
+    <div class="doodle-star star-pink" style="top: 45%; right: 8%;">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 0L15 9L24 12L15 15L12 24L9 15L0 12L9 9L12 0Z" fill="#F6A8FF" stroke="#111111" stroke-width="1.5" />
+      </svg>
+    </div>
+
+    <div class="doodle-star star-blue" style="top: 75%; right: 35%;">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 0L14.5 9.5L24 12L14.5 14.5L12 24L9.5 14.5L0 12L9.5 9.5L12 0Z" fill="#4D7CFE" stroke="#111111" stroke-width="1.5" />
+      </svg>
+    </div>
+
+    <div class="doodle-sparkle sparkle-1" style="top: 25%; left: 8%;">
+      <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 0C10 5.5 5.5 10 0 10C5.5 10 10 14.5 10 20C10 14.5 14.5 10 20 10C14.5 10 10 5.5 10 0Z" fill="currentColor" />
+      </svg>
+    </div>
+
+    <div class="doodle-sparkle sparkle-2" style="top: 60%; left: 45%;">
+      <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 0C10 5.5 5.5 10 0 10C5.5 10 10 14.5 10 20C10 14.5 14.5 10 20 10C14.5 10 10 5.5 10 0Z" fill="currentColor" />
+      </svg>
+    </div>
+
+    <!-- Plus Marks -->
+    <div class="abstract-plus plus-1" style="top: 10%; left: 25%;">+</div>
+    <div class="abstract-plus plus-2" style="top: 35%; right: 20%;">+</div>
+    <div class="abstract-plus plus-3" style="top: 85%; left: 15%;">+</div>
+  </div>
+
+  <!-- FLOATING COLORFUL STICKY NOTE LABELS (Right Side Stack) -->
+  <div class="floating-tags-container" id="floating-tags-container">
+    <!-- Dynamic content loaded by JS based on page active state -->
+  </div>
+
+  <!-- HEADER & TOP NAVIGATION -->
+  <header class="top-header">
+    <div class="header-container">
+      <a href="#" class="logo-container" id="nav-logo">
+        <div class="logo-badge">
+          <img class="logo-mark" src="logo.png" alt="AHMDGRAPHIX Logo">
+          <span class="logo-text">AHMDGRAPHIX<span class="dot-blue">.</span></span>
+        </div>
+      </a>
+
+      <nav class="main-nav">
+        <ul>
+          <li><a href="#home" class="nav-link active" data-target="portfolio" id="nav-home">Home</a></li>
+          <li><a href="#services" class="nav-link" data-target="portfolio" id="nav-services">Services</a></li>
+          <li><a href="#about" class="nav-link" data-target="portfolio" id="nav-about">About</a></li>
+          <li><a href="#pricing" class="nav-link" data-target="pricing" id="nav-pricing">Pricing</a></li>
+          <li><a href="#contact" class="nav-link" data-target="portfolio" id="nav-contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <!-- Theme Toggle Button -->
+        <button id="theme-toggle" class="btn-theme-toggle" aria-label="Toggle Theme">
+          <!-- Sun Icon (shown in dark theme) -->
+          <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <!-- Moon Icon (shown in light theme) -->
+          <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+        <a href="#contact" class="btn btn-hire" id="btn-header-hire">Available for Hire</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN SCROLL CONTAINER -->
+  <main class="main-content">
+
+    <!-- ============================================ -->
+    <!-- PAGE 1 — PORTFOLIO LANDING PAGE             -->
+    <!-- ============================================ -->
+    <section id="portfolio-page" class="page-view active-view">
+      
+      <!-- HERO SECTION -->
+      <section class="hero-section container-section">
+        <div class="hero-left">
+          <span class="author-name">Irshad Ahamed</span>
+          <h1 class="hero-headline">
+            I am a <br>
+            <span class="typing-text-wrapper">
+              <span id="typing-text">graphical Designer</span><span class="typing-cursor">_</span>
+            </span>
+          </h1>
+          
+          <p class="hero-description">
+            I transform complex problems into <span class="highlight-yellow border-box">elegant</span>, <span class="highlight-yellow border-box">scalable</span> digital solutions. With a blend of technical expertise and creative vision, I help businesses build <span class="highlight-yellow border-box">trust</span> and <span class="highlight-yellow border-box">authority</span> through exceptional design and engineering.
+          </p>
+
+          <!-- BADGES SECTION -->
+          <div class="pill-badges-group">
+            <span class="badge-pill pill-halal">100% Halal Content</span>
+            <span class="badge-pill pill-modest">Modest Designs</span>
+            <span class="badge-pill pill-ethical">Ethical Approach</span>
+          </div>
+
+          <!-- CTA AREA -->
+          <div class="hero-cta-area">
+            <a href="#contact" class="btn btn-talk">Let’s Talk</a>
+            <a href="#services-grid" class="scroll-down-indicator">
+              Scroll Down 
+              <span class="arrow-down">↓</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- SERVICES SECTION -->
+      <section id="services-grid" class="services-section container-section">
+        <div class="section-card-wrapper border-card">
+          <div class="section-header-row">
+            <h2 class="section-title text-stroke">Services</h2>
+            <p class="section-subtitle">A collective board of skills tailored for growth.</p>
+          </div>
+          
+          <div class="services-carousel-container">
+            <div class="services-carousel-track">
+              <!-- Set 1 (Items 1 to 12) -->
+              <div class="service-card theme-green">
+                <div class="card-tag">DEVELOPMENT</div>
+                <h3 class="card-title">Front End Development</h3>
+                <p class="card-desc">Building responsive, high-performance web applications using React, Next.js, and modern CSS.</p>
+                <div class="card-index">01</div>
+              </div>
+
+              <div class="service-card theme-pink">
+                <div class="card-tag">SOFTWARE</div>
+                <h3 class="card-title">SaaS Solutions</h3>
+                <p class="card-desc">Architecting scalable Software as a Service platforms with robust backend integration.</p>
+                <div class="card-index">02</div>
+              </div>
+
+              <div class="service-card theme-yellow">
+                <div class="card-tag">BRANDING</div>
+                <h3 class="card-title">Brand Identity</h3>
+                <p class="card-desc">Crafting unique visual identities, logos, and design systems that stand out.</p>
+                <div class="card-index">03</div>
+              </div>
+
+              <div class="service-card theme-blue">
+                <div class="card-tag">CREATIVE</div>
+                <h3 class="card-title">Video Production</h3>
+                <p class="card-desc">Creating engaging video content, editing, and motion graphics for digital marketing.</p>
+                <div class="card-index">04</div>
+              </div>
+
+              <div class="service-card theme-green">
+                <div class="card-tag">DEVELOPMENT</div>
+                <h3 class="card-title">Front End Development</h3>
+                <p class="card-desc">Building responsive, high-performance web applications using React, Next.js, and modern CSS.</p>
+                <div class="card-index">05</div>
+              </div>
+
+              <div class="service-card theme-pink">
+                <div class="card-tag">SOFTWARE</div>
+                <h3 class="card-title">SaaS Solutions</h3>
+                <p class="card-desc">Architecting scalable Software as a Service platforms with robust backend integration.</p>
+                <div class="card-index">06</div>
+              </div>
+
+              <div class="service-card theme-yellow">
+                <div class="card-tag">BRANDING</div>
+                <h3 class="card-title">Brand Identity</h3>
+                <p class="card-desc">Crafting unique visual identities, logos, and design systems that stand out.</p>
+                <div class="card-index">07</div>
+              </div>
+
+              <div class="service-card theme-blue">
+                <div class="card-tag">CREATIVE</div>
+                <h3 class="card-title">Video Production</h3>
+                <p class="card-desc">Creating engaging video content, editing, and motion graphics for digital marketing.</p>
+                <div class="card-index">08</div>
+              </div>
+
+              <div class="service-card theme-green">
+                <div class="card-tag">DEVELOPMENT</div>
+                <h3 class="card-title">Front End Development</h3>
+                <p class="card-desc">Building responsive, high-performance web applications using React, Next.js, and modern CSS.</p>
+                <div class="card-index">09</div>
+              </div>
+
+              <div class="service-card theme-pink">
+                <div class="card-tag">SOFTWARE</div>
+                <h3 class="card-title">SaaS Solutions</h3>
+                <p class="card-desc">Architecting scalable Software as a Service platforms with robust backend integration.</p>
+                <div class="card-index">10</div>
+              </div>
+
+              <div class="service-card theme-yellow">
+                <div class="card-tag">BRANDING</div>
+                <h3 class="card-title">Brand Identity</h3>
+                <p class="card-desc">Crafting unique visual identities, logos, and design systems that stand out.</p>
+                <div class="card-index">11</div>
+              </div>
+
+              <div class="service-card theme-blue">
+                <div class="card-tag">CREATIVE</div>
+                <h3 class="card-title">Video Production</h3>
+                <p class="card-desc">Creating engaging video content, editing, and motion graphics for digital marketing.</p>
+                <div class="card-index">12</div>
+              </div>
+
+              <!-- Set 2 (Duplicates of 1 to 12 for seamless looping) -->
+              <div class="service-card theme-green">
+                <div class="card-tag">DEVELOPMENT</div>
+                <h3 class="card-title">Front End Development</h3>
+                <p class="card-desc">Building responsive, high-performance web applications using React, Next.js, and modern CSS.</p>
+                <div class="card-index">01</div>
+              </div>
+
+              <div class="service-card theme-pink">
+                <div class="card-tag">SOFTWARE</div>
+                <h3 class="card-title">SaaS Solutions</h3>
+                <p class="card-desc">Architecting scalable Software as a Service platforms with robust backend integration.</p>
+                <div class="card-index">02</div>
+              </div>
+
+              <div class="service-card theme-yellow">
+                <div class="card-tag">BRANDING</div>
+                <h3 class="card-title">Brand Identity</h3>
+                <p class="card-desc">Crafting unique visual identities, logos, and design systems that stand out.</p>
+                <div class="card-index">03</div>
+              </div>
+
+              <div class="service-card theme-blue">
+                <div class="card-tag">CREATIVE</div>
+                <h3 class="card-title">Video Production</h3>
+                <p class="card-desc">Creating engaging video content, editing, and motion graphics for digital marketing.</p>
+                <div class="card-index">04</div>
+              </div>
+
+              <div class="service-card theme-green">
+                <div class="card-tag">DEVELOPMENT</div>
+                <h3 class="card-title">Front End Development</h3>
+                <p class="card-desc">Building responsive, high-performance web applications using React, Next.js, and modern CSS.</p>
+                <div class="card-index">05</div>
+              </div>
+
+              <div class="service-card theme-pink">
+                <div class="card-tag">SOFTWARE</div>
+                <h3 class="card-title">SaaS Solutions</h3>
+                <p class="card-desc">Architecting scalable Software as a Service platforms with robust backend integration.</p>
+                <div class="card-index">06</div>
+              </div>
+
+              <div class="service-card theme-yellow">
+                <div class="card-tag">BRANDING</div>
+                <h3 class="card-title">Brand Identity</h3>
+                <p class="card-desc">Crafting unique visual identities, logos, and design systems that stand out.</p>
+                <div class="card-index">07</div>
+              </div>
+
+              <div class="service-card theme-blue">
+                <div class="card-tag">CREATIVE</div>
+                <h3 class="card-title">Video Production</h3>
+                <p class="card-desc">Creating engaging video content, editing, and motion graphics for digital marketing.</p>
+                <div class="card-index">08</div>
+              </div>
+
+              <div class="service-card theme-green">
+                <div class="card-tag">DEVELOPMENT</div>
+                <h3 class="card-title">Front End Development</h3>
+                <p class="card-desc">Building responsive, high-performance web applications using React, Next.js, and modern CSS.</p>
+                <div class="card-index">09</div>
+              </div>
+
+              <div class="service-card theme-pink">
+                <div class="card-tag">SOFTWARE</div>
+                <h3 class="card-title">SaaS Solutions</h3>
+                <p class="card-desc">Architecting scalable Software as a Service platforms with robust backend integration.</p>
+                <div class="card-index">10</div>
+              </div>
+
+              <div class="service-card theme-yellow">
+                <div class="card-tag">BRANDING</div>
+                <h3 class="card-title">Brand Identity</h3>
+                <p class="card-desc">Crafting unique visual identities, logos, and design systems that stand out.</p>
+                <div class="card-index">11</div>
+              </div>
+
+              <div class="service-card theme-blue">
+                <div class="card-tag">CREATIVE</div>
+                <h3 class="card-title">Video Production</h3>
+                <p class="card-desc">Creating engaging video content, editing, and motion graphics for digital marketing.</p>
+                <div class="card-index">12</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SOCIAL MEDIA MANAGEMENT FEATURE SECTION -->
+      <section class="feature-section container-section">
+        <div class="feature-card border-card">
+          <div class="feature-left">
+            <span class="feature-badge">FEATURED CAPABILITY</span>
+            <h2 class="feature-title">Social Media Management</h2>
+            <p class="feature-desc">
+              We don't just manage social media—we build brands that people <span class="highlight-yellow font-accent">trust</span>, <span class="highlight-yellow font-accent">follow</span>, and <span class="highlight-yellow font-accent font-bold">buy</span> from. Discover our complete Social Media Management & Branding strategies.
+            </p>
+            <a href="#pricing" class="btn btn-black btn-switch-pricing">Know More</a>
+          </div>
+          <div class="feature-right">
+            <!-- Graphical abstract composition of social channels -->
+            <div class="social-abstract-box">
+              <div class="abstract-sticker s-instagram">@ahmdgraphix</div>
+              <div class="abstract-sticker s-halal">Halal Verified</div>
+              <div class="abstract-sticker s-growth">+420% Organic</div>
+              <div class="circle-doodle">
+                <span class="circle-text">ETHICAL MARKETING</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROCESS SECTION -->
+      <section id="about" class="process-section container-section">
+        <div class="section-header-row centered">
+          <h2 class="section-title">Our Process</h2>
+          <p class="section-subtitle">A highly structured Swiss-grid workflow for consistent performance.</p>
+        </div>
+
+        <div class="process-loops-container">
+          <div class="process-grid">
+            <div class="process-step">
+              <div class="step-num">01</div>
+              <h4 class="step-title">Discovery</h4>
+              <p class="step-desc">Understanding your business goals, target audience, and project requirements.</p>
+            </div>
+            <div class="process-step">
+              <div class="step-num">02</div>
+              <h4 class="step-title">Strategy</h4>
+              <p class="step-desc">Developing a roadmap and selecting the right technologies for scalability.</p>
+            </div>
+            <div class="process-step">
+              <div class="step-num">03</div>
+              <h4 class="step-title">Design</h4>
+              <p class="step-desc">Creating high-fidelity wireframes and interactive prototypes.</p>
+            </div>
+            <div class="process-step">
+              <div class="step-num">04</div>
+              <h4 class="step-title">Development</h4>
+              <p class="step-desc">Writing clean, efficient code using modern frameworks.</p>
+            </div>
+            <div class="process-step">
+              <div class="step-num">05</div>
+              <h4 class="step-title">Launch</h4>
+              <p class="step-desc">Testing, deploying, and ensuring a smooth go-live experience.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- BOTTOM CTA SECTION -->
+      <section id="portfolio-cta" class="bottom-cta-section container-section">
+        <div class="cta-box border-card">
+          <h2 class="cta-headline">Let’s Work Together</h2>
+          <p class="cta-subtext">Ready to start your next project? Drop me a line.</p>
+          <div class="cta-button-group">
+            <a href="mailto:ahamedirshad1412@gmail.com" class="btn btn-email">Email Me</a>
+            <a href="https://wa.me/916381950719" target="_blank" rel="noopener" class="btn btn-whatsapp">WhatsApp</a>
+          </div>
+        </div>
+      </section>
+
+    </section>
+
+    <!-- ============================================ -->
+    <!-- PAGE 2 — PRICING PAGE                       -->
+    <!-- ============================================ -->
+    <section id="pricing-page" class="page-view">
+      
+      <!-- HERO SECTION -->
+      <section class="pricing-hero container-section">
+        <div class="pricing-hero-content">
+          <h1 class="pricing-headline">
+            We Create <span class="highlight-outline-box">Organic</span> <br>
+            <span class="serif-italic">& Paid</span> content
+          </h1>
+          <p class="pricing-subheadline">
+            that <span class="highlight-yellow">grows</span> your brand.
+          </p>
+
+          <!-- MINI SLOGAN BAR -->
+          <div class="mini-slogan-bar">
+            <span class="slogan-item"><span class="highlight-slogan highlight-yellow">Creative</span> by Design.</span>
+            <span class="slogan-separator">•</span>
+            <span class="slogan-item"><span class="highlight-slogan highlight-pink">Ethical</span> by Principle.</span>
+            <span class="slogan-separator">•</span>
+            <span class="slogan-item"><span class="highlight-slogan highlight-green">Results</span> by Strategy.</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- PRICING PACKAGES SECTION -->
+      <section class="pricing-packages-section container-section">
+        <div class="packages-wrapper border-card">
+          <div class="packages-header">
+            <span class="blue-tag">SOCIAL MEDIA MANAGEMENT PACKAGES (MONTHLY)</span>
+          </div>
+
+          <div class="packages-grid">
+            
+            <!-- BASIC PACKAGE -->
+            <div class="pricing-card package-basic">
+              <div class="card-badge-header bg-green">BASIC</div>
+              <div class="price-prefix">Starts from</div>
+              <div class="price-container">
+                <span class="currency">₹</span>
+                <span class="amount">7,999</span>
+                <span class="duration">/mo</span>
+              </div>
+              <ul class="features-list">
+                <li><span class="list-bullet">✦</span> 4 Posts</li>
+                <li><span class="list-bullet">✦</span> 4–5 Reels</li>
+                <li><span class="list-bullet">✦</span> Basic captions</li>
+                <li><span class="list-bullet">✦</span> Suitable for small businesses starting out</li>
+              </ul>
+              <a href="https://wa.me/916381950719?text=Hi%20Irshad,%20I'm%20interested%20in%20your%20Basic%20Social%20Media%20Package." target="_blank" rel="noopener" class="btn btn-pricing-select">Choose Basic</a>
+            </div>
+
+            <!-- STANDARD PACKAGE -->
+            <div class="pricing-card package-standard featured-package">
+              <div class="card-badge-header bg-pink">STANDARD</div>
+              <div class="price-prefix">Starts from</div>
+              <div class="price-container">
+                <span class="currency">₹</span>
+                <span class="amount">14,999</span>
+                <span class="duration">/mo</span>
+              </div>
+              <ul class="features-list">
+                <li><span class="list-bullet">✦</span> 12 Posts</li>
+                <li><span class="list-bullet">✦</span> 8 Reels</li>
+                <li><span class="list-bullet">✦</span> Caption + hashtag strategy</li>
+                <li><span class="list-bullet">✦</span> Content planning</li>
+                <li><span class="list-bullet">✦</span> Ideal for growing brands</li>
+              </ul>
+              <a href="https://wa.me/916381950719?text=Hi%20Irshad,%20I'm%20interested%20in%20your%20Standard%20Social%20Media%20Package." target="_blank" rel="noopener" class="btn btn-pricing-select">Choose Standard</a>
+            </div>
+
+            <!-- PREMIUM PACKAGE -->
+            <div class="pricing-card package-premium">
+              <div class="card-badge-header bg-yellow">PREMIUM</div>
+              <div class="price-prefix">Starts from</div>
+              <div class="price-container">
+                <span class="currency">₹</span>
+                <span class="amount">24,999</span>
+                <span class="duration">/mo</span>
+              </div>
+              <ul class="features-list">
+                <li><span class="list-bullet">✦</span> 16 Posts</li>
+                <li><span class="list-bullet">✦</span> 12 Reels</li>
+                <li><span class="list-bullet">✦</span> Full content strategy</li>
+                <li><span class="list-bullet">✦</span> Advanced creatives</li>
+                <li><span class="list-bullet">✦</span> Priority support</li>
+                <li><span class="list-bullet">✦</span> Best for serious business growth</li>
+              </ul>
+              <a href="https://wa.me/916381950719?text=Hi%20Irshad,%20I'm%20interested%20in%20your%20Premium%20Social%20Media%20Package." target="_blank" rel="noopener" class="btn btn-pricing-select">Choose Premium</a>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- EXTRA SERVICES SECTION -->
+      <section class="extra-services-section container-section">
+        <h2 class="extra-services-title">Extra Service Cards</h2>
+        
+        <div class="extra-services-grid">
+          <!-- CARD 1: LOGO & BRANDING -->
+          <div class="extra-card">
+            <div class="extra-card-header bg-blue">LOGO & BRANDING</div>
+            <div class="extra-pricing-rows">
+              <div class="pricing-row-item">
+                <span class="item-name">Logo Design</span>
+                <span class="item-price">Starts from ₹999</span>
+              </div>
+              <div class="pricing-row-item">
+                <span class="item-name">Full Branding Package</span>
+                <span class="item-price">Starts from ₹1,999</span>
+              </div>
+            </div>
+            <div class="extra-features">
+              <p class="features-headline">Includes:</p>
+              <ul>
+                <li>Logo concepts</li>
+                <li>Color palette</li>
+                <li>Typography</li>
+                <li>Brand guidelines</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- CARD 2: GRAPHIC DESIGN -->
+          <div class="extra-card">
+            <div class="extra-card-header bg-pink">GRAPHIC DESIGN</div>
+            <div class="extra-pricing-rows">
+              <div class="pricing-row-item">
+                <span class="item-name">Social Media Post</span>
+                <span class="item-price">Starts from ₹299</span>
+              </div>
+              <div class="pricing-row-item">
+                <span class="item-name">Poster / Flyer</span>
+                <span class="item-price">Starts from ₹599</span>
+              </div>
+              <div class="pricing-row-item">
+                <span class="item-name">Carousel Post</span>
+                <span class="item-price">Starts from ₹899</span>
+              </div>
+            </div>
+            <div class="extra-features">
+              <p class="features-headline">Ideal for:</p>
+              <ul>
+                <li>One-off announcements</li>
+                <li>Event marketing flyers</li>
+                <li>Multi-slide value carousels</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- CARD 3: VIDEO EDITING -->
+          <div class="extra-card">
+            <div class="extra-card-header bg-yellow">VIDEO EDITING</div>
+            <div class="extra-pricing-rows">
+              <div class="pricing-row-item">
+                <span class="item-name">Reel Editing <span class="badge-mini bg-green">Halal only</span></span>
+                <span class="item-price">Starts from ₹699</span>
+              </div>
+              <div class="pricing-row-item">
+                <span class="item-name">Monthly Video Package</span>
+                <span class="item-price">Starts from ₹12,999</span>
+              </div>
+            </div>
+            <div class="extra-features">
+              <p class="features-headline">Features:</p>
+              <ul>
+                <li>Dynamic caption burn-ins</li>
+                <li>B-roll syncing & sound design</li>
+                <li>Modest visuals & ethical content</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- CARD 4: WEBSITE DESIGN -->
+          <div class="extra-card">
+            <div class="extra-card-header bg-green">WEBSITE DESIGN</div>
+            <div class="extra-pricing-rows">
+              <div class="pricing-row-item">
+                <span class="item-name">Basic Website</span>
+                <span class="item-price">Starts from ₹12,000–₹18,000</span>
+              </div>
+              <div class="pricing-row-item">
+                <span class="item-name">Advanced Website</span>
+                <span class="item-price">Starts from ₹22,000–₹30,000</span>
+              </div>
+            </div>
+            <div class="extra-features">
+              <p class="features-headline">Includes:</p>
+              <ul>
+                <li>Fully responsive Figma to HTML</li>
+                <li>SaaS landing optimization</li>
+                <li>CMS integration + 1 month support</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- WHO WE WORK WITH & PROMISE SECTION -->
+      <section class="who-promise-section container-section">
+        <div class="who-box border-card">
+          <h3>Who We Work With</h3>
+          <div class="who-tags">
+            <span class="who-tag">Small Businesses</span>
+            <span class="who-tag">Startups</span>
+            <span class="who-tag">Personal Brands</span>
+            <span class="who-tag">Businesses looking for ethical (halal) marketing</span>
+          </div>
+        </div>
+
+        <div class="promise-box border-card">
+          <div class="promise-content">
+            <h3>Our Promise</h3>
+            <p class="promise-text">
+              “We follow a transparent, ethical, and halal approach to marketing — focused on real growth, not shortcuts.”
+            </p>
+          </div>
+          <!-- Circular halal badge seal exactly inspired by reference -->
+          <div class="halal-badge-seal-container">
+            <div class="halal-badge-seal">
+              <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                <path id="circlePath" d="M 60, 60 m -45, 0 a 45,45 0 1,1 90,0 a 45,45 0 1,1 -90,0" fill="none" />
+                <text fill="currentColor" font-family="'Satoshi', sans-serif" font-weight="900" font-size="8.8" letter-spacing="1">
+                  <textPath href="#circlePath">
+                    ETHICAL  •  HALAL  •  RESULTS DRIVEN  •  
+                  </textPath>
+                </text>
+              </svg>
+              <div class="halal-seal-inner">
+                <span class="halal-symbol">حلال</span>
+                <span class="halal-inner-desc">100%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FINAL CTA BAR & CONTACT SECTION -->
+      <section class="final-cta-section container-section">
+        <div class="final-cta-bar border-card bg-black">
+          <h2>LET’S GROW YOUR BRAND THE RIGHT WAY!</h2>
+        </div>
+
+        <div id="contact" class="contact-section">
+          <div class="contact-card border-card">
+            <h3 class="contact-title">Start a Conversation</h3>
+            
+            <!-- Secure Contact Form -->
+            <form id="contact-form" class="secure-contact-form" novalidate>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="form-name">Name</label>
+                  <input type="text" id="form-name" name="name" required placeholder="Your Name" autocomplete="name">
+                  <span class="error-msg" id="name-error">Name is required</span>
+                </div>
+                <div class="form-group">
+                  <label for="form-email">Email</label>
+                  <input type="email" id="form-email" name="email" required placeholder="name@domain.com" autocomplete="email">
+                  <span class="error-msg" id="email-error">Please enter a valid email address</span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="form-message">Message</label>
+                <textarea id="form-message" name="message" required placeholder="Describe your project details..." rows="4"></textarea>
+                <span class="error-msg" id="message-error">Message cannot be empty</span>
+              </div>
+              <button type="submit" class="btn btn-black btn-submit-form">
+                Continue Chat in WhatsApp 💬
+              </button>
+              <div class="form-status-alert" id="form-status"></div>
+            </form>
+            
+            <div class="contact-links-grid">
+              
+              <!-- WhatsApp -->
+              <a href="https://wa.me/916381950719" target="_blank" rel="noopener" class="contact-item-link">
+                <div class="contact-icon bg-green">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#111111" stroke-width="2">
+                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+                  </svg>
+                </div>
+                <div class="contact-info">
+                  <span class="contact-label">WhatsApp</span>
+                  <span class="contact-val">+91 6381950719</span>
+                </div>
+              </a>
+
+              <!-- Email -->
+              <a href="mailto:ahamedirshad1412@gmail.com" class="contact-item-link">
+                <div class="contact-icon bg-pink">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#111111" stroke-width="2">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                    <polyline points="22,6 12,13 2,6" />
+                  </svg>
+                </div>
+                <div class="contact-info">
+                  <span class="contact-label">Email</span>
+                  <span class="contact-val">ahamedirshad1412@gmail.com</span>
+                </div>
+              </a>
+
+              <!-- Instagram -->
+              <a href="https://instagram.com/ahmdgraphix" target="_blank" rel="noopener" class="contact-item-link">
+                <div class="contact-icon bg-yellow">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#111111" stroke-width="2">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                  </svg>
+                </div>
+                <div class="contact-info">
+                  <span class="contact-label">Instagram</span>
+                  <span class="contact-val">@ahmdgraphix</span>
+                </div>
+              </a>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </section>
+
+  </main>
+
+  <!-- GLOBAL FOOTER -->
+  <footer class="global-footer container-section">
+    <div class="footer-container">
+      <p class="copyright">© 2026 Irshad Ahamed. All rights reserved.</p>
+      <div class="footer-credits">
+        <span>Inspired by Swiss-Style Editorial Design</span>
+        <span>•</span>
+        <span>Ethical & Halal Focus</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Script File -->
+  <script src="script.js"></script>
+</body>
+</html>
