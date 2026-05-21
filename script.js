@@ -446,6 +446,33 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // --- MOBILE NAV TOGGLE MECHANICS ---
+  const mobileNavToggle = document.getElementById("mobile-nav-toggle");
+  if (mobileNavToggle) {
+    mobileNavToggle.addEventListener("click", () => {
+      document.body.classList.toggle("mobile-nav-open");
+    });
+  }
+
+  // Close mobile nav when clicking a nav link, logo, or hire button
+  const navLinksList = document.querySelectorAll(".nav-link");
+  navLinksList.forEach(link => {
+    link.addEventListener("click", () => {
+      document.body.classList.remove("mobile-nav-open");
+    });
+  });
+
+  if (navLogo) {
+    navLogo.addEventListener("click", () => {
+      document.body.classList.remove("mobile-nav-open");
+    });
+  }
+  if (btnHeaderHire) {
+    btnHeaderHire.addEventListener("click", () => {
+      document.body.classList.remove("mobile-nav-open");
+    });
+  }
+
   // Init Tags
   renderFloatingTags("portfolio");
 });

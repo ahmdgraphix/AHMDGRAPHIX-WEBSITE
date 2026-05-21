@@ -63,6 +63,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 90px;
   background-color: var(--bg-color-1);
   color: var(--primary-black);
   font-family: var(--font-body);
@@ -397,41 +398,41 @@ body {
 .logo-badge {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  background-color: #111111;
-  border: 2px solid var(--accent-yellow);
-  padding: 8px 18px;
-  border-radius: 6px;
-  box-shadow: 4px 4px 0px var(--accent-yellow);
-  transform: rotate(-1.5deg);
+  gap: 12px;
+  background-color: transparent;
+  border: none;
+  padding: 4px 0;
+  border-radius: 0;
+  box-shadow: none;
+  transform: none;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Hover animation: rotates back to 0, shifts slightly, makes shadow deeper */
+/* Hover animation: scale slightly */
 .logo-badge:hover {
-  transform: rotate(0deg) scale(1.03) translate(-2px, -2px);
-  box-shadow: 6px 6px 0px var(--accent-yellow);
-  background-color: #111111;
+  transform: scale(1.03);
+  box-shadow: none;
+  background-color: transparent;
 }
 
 /* Make it pop even in dark mode */
 [data-theme="dark"] .logo-badge {
-  background-color: #111111;
-  border-color: var(--accent-yellow);
-  box-shadow: 4px 4px 0px var(--accent-yellow);
+  background-color: transparent;
+  border-color: transparent;
+  box-shadow: none;
 }
 
 [data-theme="dark"] .logo-badge:hover {
-  box-shadow: 6px 6px 0px var(--accent-yellow);
+  box-shadow: none;
 }
 
 .logo-mark {
-  width: 32px;
-  height: 32px;
+  width: 42px;
+  height: 42px;
   flex-shrink: 0;
   background-color: #000000;
   border-radius: 50%;
-  padding: 4px;
+  padding: 5px;
   box-sizing: border-box;
   transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
@@ -443,8 +444,8 @@ body {
 .logo-text {
   font-family: var(--font-primary);
   font-weight: 900;
-  font-size: 22px;
-  color: #FFFFFF !important; /* Enforced brand white color for main logo text */
+  font-size: 26px;
+  color: var(--primary-black) !important; /* Adapts to theme */
   letter-spacing: -0.5px;
   display: flex;
   align-items: baseline;
@@ -1641,6 +1642,46 @@ body {
   text-transform: uppercase;
 }
 
+/* Base btn-hamburger and lines */
+.btn-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  background-color: var(--soft-white);
+  border: 2px solid var(--primary-black);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 3px 3px 0px var(--primary-black);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  margin-left: 12px;
+  padding: 0;
+  z-index: 1001;
+}
+.btn-hamburger:hover {
+  transform: translateY(-2px);
+  box-shadow: 4px 4px 0px var(--primary-black);
+  background-color: var(--accent-yellow);
+}
+[data-theme="dark"] .btn-hamburger:hover {
+  background-color: var(--accent-blue);
+}
+.btn-hamburger:active {
+  transform: translateY(1px);
+  box-shadow: 1px 1px 0px var(--primary-black);
+}
+.hamburger-line {
+  display: block;
+  width: 20px;
+  height: 2.5px;
+  background-color: var(--primary-black);
+  border-radius: 1px;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, background-color 0.3s ease;
+}
+
 
 /* ==========================================================================
    RESPONSIVE DESIGN (Adaptive Breakpoints)
@@ -1704,6 +1745,12 @@ body {
 }
 
 @media (max-width: 768px) {
+  body.mobile-nav-open {
+    overflow: hidden;
+  }
+  html {
+    scroll-padding-top: 80px;
+  }
   .container-section {
     padding: 60px 5%;
   }
@@ -1711,10 +1758,10 @@ body {
     padding: 24px;
   }
   .hero-section {
-    padding-top: 150px;
+    padding-top: 180px;
   }
   .pricing-hero {
-    padding-top: 150px;
+    padding-top: 180px;
   }
   .hero-headline {
     font-size: clamp(32px, 8vw, 48px);
@@ -1747,10 +1794,10 @@ body {
   }
   .header-container {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: center;
     justify-content: space-between;
-    gap: 12px 16px;
+    gap: 12px;
     padding: 14px 5%;
     transition: padding 0.3s ease;
   }
@@ -1758,21 +1805,27 @@ body {
     order: 1;
   }
   .logo-badge {
-    padding: 6px 12px;
+    padding: 4px 0;
     gap: 8px;
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    transform: none;
   }
   .logo-text {
-    font-size: 17px;
+    font-size: 20px;
   }
   .logo-mark {
-    width: 24px;
-    height: 24px;
+    width: 30px;
+    height: 30px;
     padding: 3px;
   }
 
   .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     order: 2;
-    gap: 0; /* utilizes existing margin-right on btn-theme-toggle */
   }
   .header-actions .btn-hire {
     padding: 8px 14px;
@@ -1781,38 +1834,91 @@ body {
   .btn-theme-toggle {
     width: 38px;
     height: 38px;
-    margin-right: 8px;
+    margin-right: 0;
   }
   .btn-theme-toggle .sun-icon,
   .btn-theme-toggle .moon-icon {
     width: 16px;
     height: 16px;
   }
-  .main-nav {
-    order: 3;
-    width: calc(100% + 10%);
-    margin-left: -5%;
-    margin-right: -5%;
-    padding-left: 5%;
-    padding-right: 5%;
-    overflow-x: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
+  .btn-hamburger {
+    display: flex;
   }
-  .main-nav::-webkit-scrollbar {
-    display: none;
+  .main-nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--bg-color-2);
+    z-index: 1000;
+    padding: 80px 8%;
+    transform: translateY(-100%);
+    opacity: 0;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+    margin: 0;
+  }
+  .mobile-nav-open .main-nav {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
   }
   .main-nav ul {
     display: flex;
-    justify-content: flex-start;
-    gap: 20px;
-    padding: 4px 0;
-    width: max-content;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+    list-style: none;
+    padding: 0;
   }
   .nav-link {
-    font-size: 14px;
+    font-size: 32px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -1.5px;
+    padding: 12px 24px;
+    border: 2.5px solid transparent;
+    border-radius: 12px;
+    width: max-content;
+    display: block;
     white-space: nowrap;
+    opacity: 1;
   }
+  .nav-link::after {
+    display: none;
+  }
+  .nav-link:hover, .nav-link.active {
+    background-color: var(--accent-yellow);
+    color: var(--primary-black) !important;
+    border-color: var(--primary-black);
+    box-shadow: 6px 6px 0px var(--primary-black);
+    transform: rotate(-1.5deg) scale(1.05);
+  }
+  [data-theme="dark"] .nav-link:hover, [data-theme="dark"] .nav-link.active {
+    background-color: var(--accent-blue);
+    color: #FFFFFF !important;
+    border-color: var(--primary-black);
+    box-shadow: 6px 6px 0px var(--primary-black);
+  }
+
+  .mobile-nav-open .btn-hamburger .hamburger-line:nth-child(1) {
+    transform: translateY(7.5px) rotate(45deg);
+  }
+  .mobile-nav-open .btn-hamburger .hamburger-line:nth-child(2) {
+    opacity: 0;
+  }
+  .mobile-nav-open .btn-hamburger .hamburger-line:nth-child(3) {
+    transform: translateY(-7.5px) rotate(-45deg);
+  }
+
   .services-grid-container {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -1837,6 +1943,12 @@ body {
   }
   .border-card {
     padding: 18px;
+  }
+  .hero-section {
+    padding-top: 160px;
+  }
+  .pricing-hero {
+    padding-top: 160px;
   }
   .hero-headline {
     font-size: clamp(24px, 8.5vw, 32px);
@@ -1869,33 +1981,54 @@ body {
     width: 32px;
     height: 32px;
     padding: 6px;
-    margin-right: 4px;
+    margin-right: 0;
   }
   .header-container {
     padding: 10px 4%;
-    gap: 8px 12px;
+    gap: 8px;
   }
   .top-header.header-scrolled .header-container {
     padding: 6px 4%;
   }
   .logo-badge {
-    padding: 4px 8px;
+    padding: 4px 0;
     gap: 6px;
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
   }
   .logo-text {
-    font-size: 14px;
+    font-size: 16px;
   }
   .logo-mark {
-    width: 20px;
-    height: 20px;
+    width: 26px;
+    height: 26px;
     padding: 2px;
   }
+  .btn-hamburger {
+    width: 38px;
+    height: 38px;
+    gap: 4px;
+    margin-left: 8px;
+  }
+  .hamburger-line {
+    width: 16px;
+    height: 2px;
+  }
+  .mobile-nav-open .btn-hamburger .hamburger-line:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+  }
+  .mobile-nav-open .btn-hamburger .hamburger-line:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+  }
   .main-nav {
-    width: calc(100% + 8%);
-    margin-left: -4%;
-    margin-right: -4%;
-    padding-left: 4%;
-    padding-right: 4%;
+    width: 100vw;
+    margin: 0;
+    padding: 80px 4%;
+  }
+  .nav-link {
+    font-size: 26px;
+    padding: 10px 20px;
   }
   .cta-box {
     padding: 40px 20px;
