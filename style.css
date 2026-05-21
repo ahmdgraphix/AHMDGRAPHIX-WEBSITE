@@ -174,7 +174,7 @@ body {
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
-  padding: 80px 8%;
+  padding: 50px 8%;
   position: relative;
   z-index: 2;
 }
@@ -315,6 +315,7 @@ body {
   gap: 16px;
   z-index: 90;
   pointer-events: none;
+  padding-top: 40px;
 }
 
 .floating-tag {
@@ -385,7 +386,7 @@ body {
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 0px; /* spacing is already handled by margin-right on theme-toggle, but let's make it robust */
+  gap: 12px; /* spacing is handled by gap */
 }
 
 
@@ -542,9 +543,9 @@ body {
   display: grid;
   grid-template-columns: 1.2fr 0.8fr;
   align-items: center;
-  min-height: 80vh;
+  min-height: 70vh;
   padding-top: 100px;
-  padding-bottom: 60px;
+  padding-bottom: 30px;
 }
 
 .hero-left {
@@ -1035,8 +1036,8 @@ body {
 
 /* --- PRICING HERO --- */
 .pricing-hero {
-  padding-top: 120px;
-  padding-bottom: 48px;
+  padding-top: 100px;
+  padding-bottom: 24px;
 }
 
 .pricing-hero-content {
@@ -1657,9 +1658,10 @@ body {
   cursor: pointer;
   box-shadow: 3px 3px 0px var(--primary-black);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  margin-left: 12px;
+  margin-left: 0;
   padding: 0;
   z-index: 1001;
+  flex-shrink: 0;
 }
 .btn-hamburger:hover {
   transform: translateY(-2px);
@@ -1752,17 +1754,12 @@ body {
     scroll-padding-top: 80px;
   }
   .container-section {
-    padding: 60px 5%;
+    padding: 40px 5%;
   }
   .border-card {
     padding: 24px;
   }
-  .hero-section {
-    padding-top: 180px;
-  }
-  .pricing-hero {
-    padding-top: 180px;
-  }
+
   .hero-headline {
     font-size: clamp(32px, 8vw, 48px);
     letter-spacing: -1px;
@@ -1832,17 +1829,26 @@ body {
     font-size: 12px;
   }
   .btn-theme-toggle {
-    width: 38px;
-    height: 38px;
+    width: 30px;
+    height: 30px;
     margin-right: 0;
+    box-shadow: 2px 2px 0px var(--primary-black);
   }
   .btn-theme-toggle .sun-icon,
   .btn-theme-toggle .moon-icon {
-    width: 16px;
-    height: 16px;
+    width: 12px;
+    height: 12px;
   }
   .btn-hamburger {
     display: flex;
+    width: 30px;
+    height: 30px;
+    gap: 3px;
+    box-shadow: 2px 2px 0px var(--primary-black);
+  }
+  .btn-hamburger .hamburger-line {
+    width: 14px;
+    height: 1.5px;
   }
   .main-nav {
     display: flex;
@@ -1910,13 +1916,13 @@ body {
   }
 
   .mobile-nav-open .btn-hamburger .hamburger-line:nth-child(1) {
-    transform: translateY(7.5px) rotate(45deg);
+    transform: translateY(4.5px) rotate(45deg);
   }
   .mobile-nav-open .btn-hamburger .hamburger-line:nth-child(2) {
     opacity: 0;
   }
   .mobile-nav-open .btn-hamburger .hamburger-line:nth-child(3) {
-    transform: translateY(-7.5px) rotate(-45deg);
+    transform: translateY(-4.5px) rotate(-45deg);
   }
 
   .services-grid-container {
@@ -1939,17 +1945,12 @@ body {
 
 @media (max-width: 480px) {
   .container-section {
-    padding: 48px 4%;
+    padding: 30px 4%;
   }
   .border-card {
     padding: 18px;
   }
-  .hero-section {
-    padding-top: 160px;
-  }
-  .pricing-hero {
-    padding-top: 160px;
-  }
+
   .hero-headline {
     font-size: clamp(24px, 8.5vw, 32px);
   }
@@ -1978,10 +1979,16 @@ body {
     display: none;
   }
   .btn-theme-toggle {
-    width: 32px;
-    height: 32px;
-    padding: 6px;
+    width: 28px;
+    height: 28px;
+    padding: 5px;
     margin-right: 0;
+    box-shadow: 1.5px 1.5px 0px var(--primary-black);
+  }
+  .btn-theme-toggle .sun-icon,
+  .btn-theme-toggle .moon-icon {
+    width: 10px;
+    height: 10px;
   }
   .header-container {
     padding: 10px 4%;
@@ -2006,20 +2013,21 @@ body {
     padding: 2px;
   }
   .btn-hamburger {
-    width: 38px;
-    height: 38px;
-    gap: 4px;
-    margin-left: 8px;
+    width: 28px;
+    height: 28px;
+    gap: 2.5px;
+    margin-left: 0;
+    box-shadow: 1.5px 1.5px 0px var(--primary-black);
   }
-  .hamburger-line {
-    width: 16px;
-    height: 2px;
+  .btn-hamburger .hamburger-line {
+    width: 12px;
+    height: 1.5px;
   }
   .mobile-nav-open .btn-hamburger .hamburger-line:nth-child(1) {
-    transform: translateY(6px) rotate(45deg);
+    transform: translateY(4px) rotate(45deg);
   }
   .mobile-nav-open .btn-hamburger .hamburger-line:nth-child(3) {
-    transform: translateY(-6px) rotate(-45deg);
+    transform: translateY(-4px) rotate(-45deg);
   }
   .main-nav {
     width: 100vw;
@@ -2067,22 +2075,23 @@ body {
   background-color: var(--soft-white);
   border: 2px solid var(--primary-black);
   cursor: pointer;
-  padding: 8px;
+  padding: 6px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--primary-black);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  width: 44px;
-  height: 44px;
-  box-shadow: 3px 3px 0px var(--primary-black);
-  margin-right: 12px;
+  width: 34px;
+  height: 34px;
+  box-shadow: 2px 2px 0px var(--primary-black);
+  margin-right: 0;
+  flex-shrink: 0;
 }
 
 .btn-theme-toggle:hover {
   transform: translateY(-2px) rotate(15deg);
-  box-shadow: 4px 4px 0px var(--primary-black);
+  box-shadow: 3px 3px 0px var(--primary-black);
   background-color: var(--accent-yellow);
 }
 
@@ -2094,15 +2103,15 @@ body {
 /* Hide sun icon by default (light mode) */
 .btn-theme-toggle .sun-icon {
   display: none;
-  width: 20px;
-  height: 20px;
+  width: 14px;
+  height: 14px;
 }
 
 /* Show moon icon by default (light mode) */
 .btn-theme-toggle .moon-icon {
   display: block;
-  width: 20px;
-  height: 20px;
+  width: 14px;
+  height: 14px;
 }
 
 /* Dark mode icon swap */
