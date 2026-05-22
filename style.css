@@ -1205,8 +1205,8 @@ body {
 
 .price-prefix {
   font-family: var(--font-primary);
-  font-weight: 700;
-  font-size: 11px;
+  font-weight: 500;
+  font-size: 10px;
   text-transform: uppercase;
   color: var(--text-muted);
   margin-bottom: 8px;
@@ -1374,6 +1374,16 @@ body {
   font-weight: 900;
   font-size: 17px;
   color: var(--accent-blue);
+}
+
+.item-price .price-label {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-right: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .extra-features .features-headline {
