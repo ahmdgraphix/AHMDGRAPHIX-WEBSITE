@@ -473,7 +473,139 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Init Custom Cursor
+  initCustomCursor();
+
   // Init Tags
   renderFloatingTags("portfolio");
 });
+
+/* ==========================================================================
+   CUSTOM APPLE-STYLE ARROW CURSOR MECHANICS
+   ========================================================================== */
+function initCustomCursor() {
+  // Only enable custom cursor on fine-pointer devices (desktops/laptops with mouse/trackpad)
+  const isFinePointer = window.matchMedia("(pointer: fine)").matches;
+  if (!isFinePointer) return;
+
+  // Create arrow container element dynamically
+  const cursorContainer = document.createElement("div");
+  cursorContainer.className = "custom-arrow-cursor hidden";
+
+  // Inject macOS-inspired SVG arrow with radial gradients for standard/link glows
+  cursorContainer.innerHTML = `
+    <svg class="custom-arrow-cursor-svg" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <!-- Standard state glow (Purple/Orange Gradient) -->
+        <radialGradient id="cursor-glow-gradient" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#a855f7" stop-opacity="0.55" />
+          <stop offset="60%" stop-color="#f97316" stop-opacity="0.22" />
+          <stop offset="100%" stop-color="#f97316" stop-opacity="0" />
+        </radialGradient>
+        <!-- Link hover state glow (Blue/Green Gradient) -->
+        <radialGradient id="cursor-glow-link" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.55" />
+          <stop offset="60%" stop-color="#10b981" stop-opacity="0.22" />
+          <stop offset="100%" stop-color="#10b981" stop-opacity="0" />
+        </radialGradient>
+      </defs>
+      
+      <!-- Soft backdrop glow (centered under the arrow body for natural lighting balance) -->
+      <circle class="cursor-glow-circle" cx="6" cy="6" r="14" fill="url(#cursor-glow-gradient)" />
+      
+      <!-- Crisp macOS Arrow Shape (Crisp white fill, sharp dark borders, hotspot active at 0,0) -->
+      <path d="M0,0 L0,17 L4.5,12.5 L8.5,21.5 L11,20.5 L7.5,11.5 L12.5,11.5 Z" 
+            fill="#FFFFFF" 
+            stroke="#111111" 
+            stroke-width="1.5" 
+            stroke-linejoin="miter" 
+            stroke-miterlimit="4" />
+    </svg>
+  `;
+
+  document.body.appendChild(cursorContainer);
+
+  // Position tracking variables
+  let mouseX = 0, mouseY = 0;
+  let cursorX = 0, cursorY = 0;
+  
+  let isMouseInWindow = false;
+  let firstMove = true;
+
+  // Track Mouse Movements
+  window.addEventListener("mousemove", (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+
+    if (firstMove) {
+      cursorX = mouseX;
+      cursorY = mouseY;
+      firstMove = false;
+    }
+
+    if (!isMouseInWindow) {
+      isMouseInWindow = true;
+      cursorContainer.classList.remove("hidden");
+    }
+  });
+
+  // Track window focus/exit
+  document.addEventListener("mouseleave", () => {
+    isMouseInWindow = false;
+    cursorContainer.classList.add("hidden");
+    firstMove = true;
+  });
+
+  document.addEventListener("mouseenter", () => {
+    isMouseInWindow = true;
+    cursorContainer.classList.remove("hidden");
+  });
+
+  // CLICK animations (Mousedown/Mouseup triggers small scale-down)
+  window.addEventListener("mousedown", () => {
+    cursorContainer.classList.add("active");
+  });
+  window.addEventListener("mouseup", () => {
+    cursorContainer.classList.remove("active");
+  });
+
+  // HOVER States - Interactive delegation
+  document.addEventListener("mouseover", (e) => {
+    const target = e.target.closest('a, button, .btn, .nav-link, [role="button"], .floating-tag, .who-tag, .pricing-card, .services-card, .process-step');
+    
+    if (target) {
+      const isButton = target.tagName === "BUTTON" || target.classList.contains("btn") || target.classList.contains("btn-theme-toggle") || target.classList.contains("btn-hamburger") || target.getAttribute("role") === "button";
+      
+      if (isButton) {
+        cursorContainer.classList.add("hover-button");
+        cursorContainer.classList.remove("hover-link");
+      } else {
+        cursorContainer.classList.add("hover-link");
+        cursorContainer.classList.remove("hover-button");
+      }
+    } else {
+      cursorContainer.classList.remove("hover-button", "hover-link");
+    }
+  });
+
+  // Smooth LERP loop for 60fps+ hardware-accelerated movements
+  function updateCursor() {
+    if (!isMouseInWindow) {
+      requestAnimationFrame(updateCursor);
+      return;
+    }
+
+    // Smooth Apple-like easing (0.22 lerp factor)
+    cursorX += (mouseX - cursorX) * 0.22;
+    cursorY += (mouseY - cursorY) * 0.22;
+
+    // Apply translations directly to align the arrow tip (0,0) to mouse pointer
+    cursorContainer.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0)`;
+
+    requestAnimationFrame(updateCursor);
+  }
+
+  // Start the frame loop
+  requestAnimationFrame(updateCursor);
+}
 

@@ -23,6 +23,7 @@
   --text-muted: #666666;
   
   --line-color: #111111;
+  --grid-line-color: rgba(17, 17, 17, 0.045);
   --shadow-color: rgba(17, 17, 17, 0.05);
   
   --font-primary: 'Satoshi', 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -50,6 +51,7 @@
   --text-muted: #747D8C;
   
   --line-color: #EFFF72; /* Line glows yellow in dark mode */
+  --grid-line-color: rgba(255, 255, 255, 0.045);
   --shadow-color: rgba(0, 0, 0, 0.5);
 }
 
@@ -97,6 +99,24 @@ body {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
+/* --- Faded Grid Background --- */
+.grid-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: -10;
+  background-image: 
+    linear-gradient(to right, var(--grid-line-color) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line-color) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(circle at 50% 50%, white 35%, rgba(255, 255, 255, 0.15) 100%);
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, white 35%, rgba(255, 255, 255, 0.15) 100%);
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
 
 /* --- Background Doodles & SVG path --- */
 .global-decorations {
@@ -2283,6 +2303,97 @@ body {
   }
   .halal-badge-seal-container {
     margin: 0 auto;
+  }
+}
+
+/* ==========================================================================
+   CUSTOM APPLE-STYLE CURSOR
+   ========================================================================== */
+
+/* Fallback: elements are hidden on touch devices by default */
+.custom-arrow-cursor {
+  display: none;
+}
+
+/* Hide default cursor on desktop devices with hover capabilities */
+@media (pointer: fine) {
+  html, body, 
+  body *,
+  a, 
+  button, 
+  input, 
+  textarea, 
+  select, 
+  [role="button"],
+  .floating-tag,
+  .who-tag,
+  .pricing-card,
+  .services-card,
+  .process-step {
+    cursor: none !important;
+  }
+
+  /* Custom Arrow Cursor Container */
+  .custom-arrow-cursor {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    pointer-events: none;
+    z-index: 100000;
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+    transition: opacity 0.3s ease;
+  }
+
+  .custom-arrow-cursor.hidden {
+    opacity: 0;
+  }
+
+  /* SVG Graphics Styling & Easing */
+  .custom-arrow-cursor-svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    transform-origin: 0 0; /* Scale & Rotate from the hotpoint (tip) of the arrow */
+    transition: transform 0.22s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  /* Smooth transition for backdrop glow circle */
+  .cursor-glow-circle {
+    transition: r 0.25s ease, opacity 0.25s ease, fill 0.25s ease;
+    opacity: 0.5;
+  }
+
+  /* HOVER: Buttons (Scale up & Stronger Glow) */
+  .custom-arrow-cursor.hover-button .custom-arrow-cursor-svg {
+    transform: scale(1.25);
+  }
+  .custom-arrow-cursor.hover-button .cursor-glow-circle {
+    opacity: 0.8;
+    r: 20px; /* Expand radial gradient glow area */
+  }
+
+  /* HOVER: Links (Tilt/Rotate & Glow Color Swap) */
+  .custom-arrow-cursor.hover-link .custom-arrow-cursor-svg {
+    transform: scale(1.1) rotate(-15deg);
+  }
+  .custom-arrow-cursor.hover-link .cursor-glow-circle {
+    opacity: 0.75;
+    fill: url(#cursor-glow-link); /* Swap radial gradient in SVG definitions */
+  }
+
+  /* CLICK: Press Scale Down Animation */
+  .custom-arrow-cursor.active .custom-arrow-cursor-svg {
+    transform: scale(0.9);
+  }
+  .custom-arrow-cursor.active.hover-button .custom-arrow-cursor-svg {
+    transform: scale(1.05); /* Scales down relative to hover scale of 1.25 */
+  }
+  .custom-arrow-cursor.active.hover-link .custom-arrow-cursor-svg {
+    transform: scale(0.95) rotate(-15deg); /* Scales down relative to 1.1 while preserving rotation */
   }
 }
 
