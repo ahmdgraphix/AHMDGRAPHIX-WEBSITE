@@ -476,6 +476,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // Init Custom Cursor
   initCustomCursor();
 
+  // Init Services Carousel
+  initServicesCarousel();
+
   // Init Tags
   renderFloatingTags("portfolio");
 });
@@ -491,6 +494,7 @@ function initCustomCursor() {
   // Create arrow container element dynamically
   const cursorContainer = document.createElement("div");
   cursorContainer.className = "custom-arrow-cursor hidden";
+  cursorContainer.setAttribute("id", "custom-cursor");
 
   // Inject macOS-inspired SVG arrow with radial gradients for standard/link glows
   cursorContainer.innerHTML = `
@@ -525,27 +529,61 @@ function initCustomCursor() {
 
   document.body.appendChild(cursorContainer);
 
-  // Position tracking variables
-  let mouseX = 0, mouseY = 0;
-  let cursorX = 0, cursorY = 0;
-  
+  let mouseX = 0;
+  let mouseY = 0;
+  let cursorX = 0;
+  let cursorY = 0;
   let isMouseInWindow = false;
-  let firstMove = true;
+  let rafId = null;
+  let activeHoverTarget = null;
+
+  // LERP factor (higher is faster/snappier, 1 is instant).
+  // 0.35 provides high responsiveness while retaining the premium organic glide.
+  const EASE = 0.35;
+
+  function updateCursor() {
+    if (!isMouseInWindow) {
+      rafId = null;
+      return;
+    }
+
+    // Apply interpolation
+    cursorX += (mouseX - cursorX) * EASE;
+    cursorY += (mouseY - cursorY) * EASE;
+
+    // Use Math.round to avoid subpixel rendering issues and visual blurriness
+    cursorContainer.style.transform = `translate3d(${Math.round(cursorX)}px, ${Math.round(cursorY)}px, 0)`;
+
+    // Check if visual coordinates have converged to save cycles
+    const dx = mouseX - cursorX;
+    const dy = mouseY - cursorY;
+    
+    if (Math.abs(dx) > 0.1 || Math.abs(dy) > 0.1) {
+      rafId = requestAnimationFrame(updateCursor);
+    } else {
+      cursorX = mouseX;
+      cursorY = mouseY;
+      cursorContainer.style.transform = `translate3d(${Math.round(cursorX)}px, ${Math.round(cursorY)}px, 0)`;
+      rafId = null;
+    }
+  }
 
   // Track Mouse Movements
   window.addEventListener("mousemove", (e) => {
     mouseX = e.clientX;
     mouseY = e.clientY;
 
-    if (firstMove) {
-      cursorX = mouseX;
-      cursorY = mouseY;
-      firstMove = false;
-    }
-
     if (!isMouseInWindow) {
       isMouseInWindow = true;
       cursorContainer.classList.remove("hidden");
+      // Snap instantly on first entry to prevent lagging from top-left (0,0)
+      cursorX = mouseX;
+      cursorY = mouseY;
+    }
+
+    // Start rendering loop if not already running
+    if (!rafId) {
+      rafId = requestAnimationFrame(updateCursor);
     }
   });
 
@@ -553,12 +591,20 @@ function initCustomCursor() {
   document.addEventListener("mouseleave", () => {
     isMouseInWindow = false;
     cursorContainer.classList.add("hidden");
-    firstMove = true;
+    if (rafId) {
+      cancelAnimationFrame(rafId);
+      rafId = null;
+    }
   });
 
-  document.addEventListener("mouseenter", () => {
+  document.addEventListener("mouseenter", (e) => {
     isMouseInWindow = true;
     cursorContainer.classList.remove("hidden");
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    cursorX = mouseX;
+    cursorY = mouseY;
+    cursorContainer.style.transform = `translate3d(${Math.round(cursorX)}px, ${Math.round(cursorY)}px, 0)`;
   });
 
   // CLICK animations (Mousedown/Mouseup triggers small scale-down)
@@ -570,42 +616,199 @@ function initCustomCursor() {
   });
 
   // HOVER States - Interactive delegation
-  document.addEventListener("mouseover", (e) => {
-    const target = e.target.closest('a, button, .btn, .nav-link, [role="button"], .floating-tag, .who-tag, .pricing-card, .services-card, .process-step');
+  function updateHoverState(element) {
+    if (!element) return;
     
-    if (target) {
-      const isButton = target.tagName === "BUTTON" || target.classList.contains("btn") || target.classList.contains("btn-theme-toggle") || target.classList.contains("btn-hamburger") || target.getAttribute("role") === "button";
-      
-      if (isButton) {
-        cursorContainer.classList.add("hover-button");
-        cursorContainer.classList.remove("hover-link");
-      } else {
-        cursorContainer.classList.add("hover-link");
-        cursorContainer.classList.remove("hover-button");
-      }
-    } else {
-      cursorContainer.classList.remove("hover-button", "hover-link");
-    }
-  });
-
-  // Smooth LERP loop for 60fps+ hardware-accelerated movements
-  function updateCursor() {
-    if (!isMouseInWindow) {
-      requestAnimationFrame(updateCursor);
+    // If hovering over input fields, textareas or selects, hide the custom cursor and show native caret
+    const isInputField = element.closest('input, textarea, select, [contenteditable="true"]');
+    if (isInputField) {
+      cursorContainer.classList.add("hidden-input");
       return;
+    } else {
+      cursorContainer.classList.remove("hidden-input");
     }
 
-    // Smooth Apple-like easing (0.22 lerp factor)
-    cursorX += (mouseX - cursorX) * 0.22;
-    cursorY += (mouseY - cursorY) * 0.22;
-
-    // Apply translations directly to align the arrow tip (0,0) to mouse pointer
-    cursorContainer.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0)`;
-
-    requestAnimationFrame(updateCursor);
+    const target = element.closest('a, button, .btn, .nav-link, [role="button"], .floating-tag, .who-tag, .pricing-card, .services-card, .process-step, .carousel-control-btn');
+    
+    if (target !== activeHoverTarget) {
+      activeHoverTarget = target;
+      if (target) {
+        const isButton = target.tagName === "BUTTON" || target.classList.contains("btn") || target.classList.contains("btn-theme-toggle") || target.classList.contains("btn-hamburger") || target.getAttribute("role") === "button" || target.classList.contains("carousel-control-btn");
+        
+        if (isButton) {
+          cursorContainer.classList.add("hover-button");
+          cursorContainer.classList.remove("hover-link");
+        } else {
+          cursorContainer.classList.add("hover-link");
+          cursorContainer.classList.remove("hover-button");
+        }
+      } else {
+        cursorContainer.classList.remove("hover-button", "hover-link");
+      }
+    }
   }
 
-  // Start the frame loop
-  requestAnimationFrame(updateCursor);
+  document.addEventListener("mouseover", (e) => {
+    updateHoverState(e.target);
+  });
+
+  // Update hover state on scroll so cursor changes type when content scrolls beneath it
+  window.addEventListener("scroll", () => {
+    if (isMouseInWindow) {
+      const elementUnderMouse = document.elementFromPoint(mouseX, mouseY);
+      if (elementUnderMouse) {
+        updateHoverState(elementUnderMouse);
+      }
+    }
+  }, { passive: true });
+}
+
+/* ==========================================================================
+   SERVICES CAROUSEL MANUAL NAVIGATION & JS AUTO-SCROLL
+   ========================================================================== */
+function initServicesCarousel() {
+  const track = document.querySelector(".services-carousel-track");
+  const prevBtn = document.querySelector(".carousel-control-btn.prev-btn");
+  const nextBtn = document.querySelector(".carousel-control-btn.next-btn");
+
+  if (!track || !prevBtn || !nextBtn) return;
+
+  const CARD_WIDTH = 320;
+  const GAP = 24;
+  const STEP_SIZE = CARD_WIDTH + GAP; // 344px
+  const TOTAL_SET_WIDTH = 12 * STEP_SIZE; // 4128px
+  
+  let isManual = false;
+  let isHovered = false;
+  let index = 0;
+  let currentX = 0;
+  let isTransitioning = false;
+  let resumeTimeout = null;
+  let rafId = null;
+
+  // Auto-scroll speed configuration (pixels per frame, e.g. 0.8px/frame)
+  const AUTO_SCROLL_SPEED = 0.8;
+
+  function autoScrollLoop() {
+    if (!isManual && !isHovered) {
+      currentX -= AUTO_SCROLL_SPEED;
+      
+      // Seamless wrap: if we scroll past the first set, wrap back
+      if (currentX <= -TOTAL_SET_WIDTH) {
+        currentX += TOTAL_SET_WIDTH;
+      }
+      track.style.transform = `translate3d(${currentX}px, 0, 0)`;
+    }
+    rafId = requestAnimationFrame(autoScrollLoop);
+  }
+
+  // Start auto scroll
+  rafId = requestAnimationFrame(autoScrollLoop);
+
+  // Mouse hover detection to pause/resume auto-scroll
+  track.addEventListener("mouseenter", () => {
+    isHovered = true;
+  });
+  track.addEventListener("mouseleave", () => {
+    isHovered = false;
+  });
+
+  function switchToManual() {
+    if (isManual) return;
+    isManual = true;
+
+    // Remove transition class to read exact current computed transform
+    track.classList.remove("transition-active");
+    
+    const style = window.getComputedStyle(track);
+    const transform = style.transform || style.webkitTransform;
+    let computedX = 0;
+
+    if (transform && transform !== "none") {
+      try {
+        const matrix = new DOMMatrix(transform);
+        computedX = matrix.m41;
+      } catch (err) {
+        const parts = transform.split("(")[1].split(")")[0].split(",");
+        computedX = parseFloat(parts[4] || 0);
+      }
+    }
+
+    // Determine nearest card index
+    index = Math.round(computedX / -STEP_SIZE);
+
+    // If index is outside the double set's middle range, snap to the middle duplicate to support left navigation
+    if (index < 12) {
+      index += 12;
+      computedX = -index * STEP_SIZE;
+      track.style.transform = `translate3d(${computedX}px, 0, 0)`;
+      track.offsetHeight; // Force reflow
+    }
+
+    currentX = -index * STEP_SIZE;
+    track.classList.add("transition-active");
+    track.style.transform = `translate3d(${currentX}px, 0, 0)`;
+  }
+
+  function navigate(direction) {
+    switchToManual();
+
+    if (isTransitioning) return;
+    isTransitioning = true;
+
+    if (direction === "next") {
+      index++;
+    } else {
+      index--;
+    }
+
+    currentX = -index * STEP_SIZE;
+    track.style.transform = `translate3d(${currentX}px, 0, 0)`;
+
+    // Clear existing resume timeout
+    if (resumeTimeout) {
+      clearTimeout(resumeTimeout);
+    }
+  }
+
+  prevBtn.addEventListener("click", () => navigate("prev"));
+  nextBtn.addEventListener("click", () => navigate("next"));
+
+  // Handle seamless wrapping on transitionend
+  track.addEventListener("transitionend", (e) => {
+    // Only handle transitions on the track itself
+    if (e.target !== track) return;
+    
+    isTransitioning = false;
+    if (!isManual) return;
+
+    // Wrap index if outside the safe zone [6, 17]
+    if (index < 6) {
+      index += 12;
+      currentX = -index * STEP_SIZE;
+      
+      track.classList.remove("transition-active");
+      track.style.transform = `translate3d(${currentX}px, 0, 0)`;
+      track.offsetHeight; // Force reflow
+      track.classList.add("transition-active");
+    } else if (index >= 18) {
+      index -= 12;
+      currentX = -index * STEP_SIZE;
+      
+      track.classList.remove("transition-active");
+      track.style.transform = `translate3d(${currentX}px, 0, 0)`;
+      track.offsetHeight; // Force reflow
+      track.classList.add("transition-active");
+    }
+
+    // Schedule resuming of auto scroll after 5 seconds of inactivity
+    if (resumeTimeout) {
+      clearTimeout(resumeTimeout);
+    }
+    resumeTimeout = setTimeout(() => {
+      isManual = false;
+      track.classList.remove("transition-active");
+    }, 5000);
+  });
 }
 

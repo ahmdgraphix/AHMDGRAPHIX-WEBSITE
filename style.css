@@ -734,6 +734,15 @@ body {
   margin-top: 12px;
 }
 
+#services-grid .section-card-wrapper.border-card {
+  overflow: visible;
+}
+
+.services-carousel-wrapper {
+  position: relative;
+  width: 100%;
+}
+
 .services-carousel-container {
   overflow: hidden;
   position: relative;
@@ -747,12 +756,13 @@ body {
   display: flex;
   gap: 24px;
   width: max-content;
-  animation: scrollServices 45s linear infinite;
   padding: 10px 0;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
 }
 
-.services-carousel-track:hover {
-  animation-play-state: paused;
+.services-carousel-track.transition-active {
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .services-carousel-track .service-card {
@@ -760,13 +770,44 @@ body {
   flex-shrink: 0;
 }
 
-@keyframes scrollServices {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
+/* Carousel Control Buttons (Neo-brutalist) */
+.carousel-control-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background-color: var(--soft-white);
+  border: 2px solid var(--primary-black);
+  box-shadow: 3px 3px 0px var(--primary-black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 20;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  color: var(--primary-black);
+  padding: 0;
+}
+
+.carousel-control-btn:hover {
+  transform: translateY(-50%) translate(1px, 1px);
+  box-shadow: 2px 2px 0px var(--primary-black);
+  background-color: var(--bg-color-1);
+}
+
+.carousel-control-btn:active {
+  transform: translateY(-50%) translate(3px, 3px);
+  box-shadow: 0px 0px 0px var(--primary-black);
+}
+
+.carousel-control-btn.prev-btn {
+  left: -24px;
+}
+
+.carousel-control-btn.next-btn {
+  right: -24px;
 }
 
 .service-card {
@@ -1789,6 +1830,30 @@ body {
   .border-card {
     padding: 24px;
   }
+  .carousel-control-btn {
+    width: 36px;
+    height: 36px;
+    box-shadow: 2px 2px 0px var(--primary-black);
+  }
+  .carousel-control-btn svg {
+    width: 16px;
+    height: 16px;
+    stroke-width: 2px;
+  }
+  .carousel-control-btn:hover {
+    transform: translateY(-50%) translate(0.5px, 0.5px);
+    box-shadow: 1.5px 1.5px 0px var(--primary-black);
+  }
+  .carousel-control-btn:active {
+    transform: translateY(-50%) translate(2px, 2px);
+    box-shadow: 0px 0px 0px var(--primary-black);
+  }
+  .carousel-control-btn.prev-btn {
+    left: -12px;
+  }
+  .carousel-control-btn.next-btn {
+    right: -12px;
+  }
 
   .hero-headline {
     font-size: clamp(32px, 8vw, 48px);
@@ -2328,12 +2393,9 @@ body {
 /* Hide default cursor on desktop devices with hover capabilities */
 @media (pointer: fine) {
   html, body, 
-  body *,
+  body *:not(input):not(textarea):not(select):not([contenteditable="true"]),
   a, 
   button, 
-  input, 
-  textarea, 
-  select, 
   [role="button"],
   .floating-tag,
   .who-tag,
@@ -2341,6 +2403,17 @@ body {
   .services-card,
   .process-step {
     cursor: none !important;
+  }
+
+  /* Restore native text/pointer cursors for inputs, textareas and selects */
+  input, 
+  textarea, 
+  [contenteditable="true"] {
+    cursor: text !important;
+  }
+  
+  select {
+    cursor: pointer !important;
   }
 
   /* Custom Arrow Cursor Container */
@@ -2351,14 +2424,17 @@ body {
     left: 0;
     width: 40px;
     height: 40px;
-    pointer-events: none;
+    pointer-events: none !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
     z-index: 100000;
     will-change: transform;
     transform: translate3d(0, 0, 0);
     transition: opacity 0.3s ease;
   }
 
-  .custom-arrow-cursor.hidden {
+  .custom-arrow-cursor.hidden,
+  .custom-arrow-cursor.hidden-input {
     opacity: 0;
   }
 
